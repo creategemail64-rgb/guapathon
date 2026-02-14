@@ -12,34 +12,6 @@
         font-family: Impact, sans-serif;
     }
 
-    /* Blur overlay */
-    .overlay {
-        position: fixed;
-        width: 100%;
-        height: 100%;
-        backdrop-filter: blur(15px);
-        background: rgba(0,0,0,0.7);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 10;
-    }
-
-    .startButton {
-        padding: 25px 50px;
-        font-size: 40px;
-        color: red;
-        background: black;
-        border: 4px solid red;
-        cursor: pointer;
-        transition: 0.2s;
-    }
-
-    .startButton:hover {
-        background: red;
-        color: black;
-    }
-
     .textA, .textB {
         position: absolute;
         color: red;
@@ -74,32 +46,12 @@
 </head>
 <body>
 
-<div class="overlay" id="overlay">
-    <button class="startButton" onclick="startChaos()">CLICK TO ENTER PSYKOTIC MODE</button>
-</div>
-
-<audio id="bgMusic" loop>
+<!-- Local MP3 file, rename your file to music.mp3 -->
+<audio id="bgMusic" loop autoplay>
     <source src="music.mp3" type="audio/mpeg">
 </audio>
 
 <script>
-let chaosStarted = false;
-
-function startChaos() {
-    if (chaosStarted) return;
-    chaosStarted = true;
-
-    // Remove blur overlay
-    document.getElementById("overlay").style.display = "none";
-
-    // Play local audio
-    document.getElementById("bgMusic").play();
-
-    // Start text spam
-    setInterval(() => createText("A"), 120);
-    setInterval(() => createText("B"), 120);
-}
-
 function createText(type) {
     const text = document.createElement("div");
 
@@ -120,6 +72,15 @@ function createText(type) {
         text.remove();
     }, 3000);
 }
+
+// Start text spam immediately
+setInterval(() => createText("A"), 120);
+setInterval(() => createText("B"), 120);
+
+// Play music (some browsers may still require a user gesture for autoplay)
+document.getElementById("bgMusic").play().catch(() => {
+    console.log("Autoplay blocked, click anywhere to start music.");
+});
 </script>
 
 </body>
