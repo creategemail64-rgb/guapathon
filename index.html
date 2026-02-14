@@ -63,12 +63,11 @@
 </head>
 <body>
 
-<audio id="bgMusic" loop>
-    <source src="music.mp3" type="audio/mpeg">
-</audio>
+<audio id="bgMusic" loop></audio>
 
 <script>
 let chaosStarted = false;
+const songs = ['music.mp3', 'music2.mp3', 'music3.mp3'];
 
 function createText(type) {
     const text = document.createElement("div");
@@ -106,8 +105,11 @@ function startChaos() {
     // Remove blur
     document.body.style.filter = "none";
 
-    // Play music
-    document.getElementById("bgMusic").play();
+    // Pick a random song
+    const audio = document.getElementById("bgMusic");
+    const song = songs[Math.floor(Math.random() * songs.length)];
+    audio.src = song;
+    audio.play();
 
     // Start red chaos texts
     setInterval(() => createText("A"), 120);
