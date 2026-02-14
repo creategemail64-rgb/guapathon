@@ -14,6 +14,18 @@
         cursor: pointer;
     }
 
+    /* Full-screen transparent button */
+    #startBtn {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0); /* fully transparent */
+        border: none;
+        z-index: 999;
+    }
+
     .textA, .textB, .clickText {
         position: absolute;
         font-weight: bold;
@@ -63,6 +75,9 @@
 </head>
 <body>
 
+<!-- Big transparent button -->
+<button id="startBtn"></button>
+
 <audio id="bgMusic" loop>
     <source src="music.mp3" type="audio/mpeg">
 </audio>
@@ -103,6 +118,9 @@ function startChaos() {
     // Remove blur
     document.body.style.filter = "none";
 
+    // Hide the big button
+    document.getElementById("startBtn").style.display = "none";
+
     // Play music
     document.getElementById("bgMusic").play();
 
@@ -114,8 +132,8 @@ function startChaos() {
 // Spawn white CLICK texts continuously
 setInterval(() => createText("click"), 80);
 
-// Start chaos on **any click anywhere on the page**
-document.body.addEventListener("click", startChaos);
+// Start chaos on button click
+document.getElementById("startBtn").addEventListener("click", startChaos);
 </script>
 
 </body>
