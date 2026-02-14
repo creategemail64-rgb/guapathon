@@ -1,0 +1,312 @@
+<p>
+    &lt;!DOCTYPE html&gt;
+</p>
+<p>
+    &lt;html&gt;
+</p>
+<p>
+    &lt;head&gt;
+</p>
+<p>
+    &lt;meta charset="UTF-8"&gt;
+</p>
+<p>
+    &lt;title&gt;Psykotic Mode&lt;/title&gt;
+</p>
+<p>
+    &lt;style&gt;
+</p>
+<p>
+        body {
+</p>
+<p>
+            margin: 0;
+</p>
+<p>
+            background: black;
+</p>
+<p>
+            overflow: hidden;
+</p>
+<p>
+            font-family: Impact, sans-serif;
+</p>
+<p>
+        }
+</p>
+<p>
+        /* Blur overlay */
+</p>
+<p>
+        .overlay {
+</p>
+<p>
+            position: fixed;
+</p>
+<p>
+            width: 100%;
+</p>
+<p>
+            height: 100%;
+</p>
+<p>
+            backdrop-filter: blur(15px);
+</p>
+<p>
+            background: rgba(0,0,0,0.7);
+</p>
+<p>
+            display: flex;
+</p>
+<p>
+            justify-content: center;
+</p>
+<p>
+            align-items: center;
+</p>
+<p>
+            z-index: 10;
+</p>
+<p>
+        }
+</p>
+<p>
+        .startButton {
+</p>
+<p>
+            padding: 25px 50px;
+</p>
+<p>
+            font-size: 40px;
+</p>
+<p>
+            color: red;
+</p>
+<p>
+            background: black;
+</p>
+<p>
+            border: 4px solid red;
+</p>
+<p>
+            cursor: pointer;
+</p>
+<p>
+            transition: 0.2s;
+</p>
+<p>
+        }
+</p>
+<p>
+        .startButton:hover {
+</p>
+<p>
+            background: red;
+</p>
+<p>
+            color: black;
+</p>
+<p>
+        }
+</p>
+<p>
+        .textA, .textB {
+</p>
+<p>
+            position: absolute;
+</p>
+<p>
+            color: red;
+</p>
+<p>
+            font-weight: bold;
+</p>
+<p>
+            white-space: nowrap;
+</p>
+<p>
+            animation: flash 0.15s infinite alternate;
+</p>
+<p>
+        }
+</p>
+<p>
+        .textA {
+</p>
+<p>
+            animation: flash 0.15s infinite alternate, moveRight 3s linear infinite;
+</p>
+<p>
+        }
+</p>
+<p>
+        .textB {
+</p>
+<p>
+            animation: flash 0.15s infinite alternate, moveLeft 3s linear infinite;
+</p>
+<p>
+        }
+</p>
+<p>
+        @keyframes flash {
+</p>
+<p>
+            from { opacity: 1; }
+</p>
+<p>
+            to { opacity: 0.2; }
+</p>
+<p>
+        }
+</p>
+<p>
+        @keyframes moveRight {
+</p>
+<p>
+            from { transform: translateX(-100vw); }
+</p>
+<p>
+            to { transform: translateX(100vw); }
+</p>
+<p>
+        }
+</p>
+<p>
+        @keyframes moveLeft {
+</p>
+<p>
+            from { transform: translateX(100vw); }
+</p>
+<p>
+            to { transform: translateX(-100vw); }
+</p>
+<p>
+        }
+</p>
+<p>
+    &lt;/style&gt;
+</p>
+<p>
+    &lt;/head&gt;
+</p>
+<p>
+    &lt;body&gt;
+</p>
+<p>
+    &lt;div class="overlay" id="overlay"&gt;
+</p>
+<p>
+        &lt;button class="startButton" onclick="startChaos()"&gt;CLICK TO ENTER PSYKOTIC MODE&lt;/button&gt;
+</p>
+<p>
+    &lt;/div&gt;
+</p>
+<p>
+    &lt;audio id="bgMusic" loop&gt;
+</p>
+<p>
+        &lt;source src="https://drive.google.com/uc?export=download&amp;id=1OsqgIKqcUGsYtfKV2Om7ol8W6GbhgPTt" type="audio/mpeg"&gt;
+</p>
+<p>
+    &lt;/audio&gt;
+</p>
+<p>
+    &lt;script&gt;
+</p>
+<p>
+    let chaosStarted = false;
+</p>
+<p>
+    function startChaos() {
+</p>
+<p>
+        if (chaosStarted) return;
+</p>
+<p>
+        chaosStarted = true;
+</p>
+<p>
+        // Remove blur overlay
+</p>
+<p>
+        document.getElementById("overlay").style.display = "none";
+</p>
+<p>
+        // Play Google Drive audio
+</p>
+<p>
+        const music = document.getElementById("bgMusic");
+</p>
+<p>
+        music.play();
+</p>
+<p>
+        // Start text spam
+</p>
+<p>
+        setInterval(() =&gt; createText("A"), 120);
+</p>
+<p>
+        setInterval(() =&gt; createText("B"), 120);
+</p>
+<p>
+    }
+</p>
+<p>
+    function createText(type) {
+</p>
+<p>
+        const text = document.createElement("div");
+</p>
+<p>
+        if (type === "A") {
+</p>
+<p>
+            text.className = "textA";
+</p>
+<p>
+            text.innerText = "I AM GOING PSYKOTIC";
+</p>
+<p>
+        } else {
+</p>
+<p>
+            text.className = "textB";
+</p>
+<p>
+            text.innerText = "SLIMEPOINTE49";
+</p>
+<p>
+        }
+</p>
+<p>
+        text.style.top = Math.random() * window.innerHeight + "px";
+</p>
+<p>
+        text.style.fontSize = (30 + Math.random() * 70) + "px";
+</p>
+<p>
+        document.body.appendChild(text);
+</p>
+<p>
+        setTimeout(() =&gt; {
+</p>
+<p>
+            text.remove();
+</p>
+<p>
+        }, 3000);
+</p>
+<p>
+    }
+</p>
+<p>
+    &lt;/script&gt;
+</p>
+<p>
+    &lt;/body&gt;
+</p>
+<p>
+    &lt;/html&gt;
+</p>
