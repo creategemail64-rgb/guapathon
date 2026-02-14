@@ -11,19 +11,6 @@
         overflow: hidden;
         font-family: Impact, sans-serif;
         filter: blur(8px); /* initial blur */
-        cursor: pointer;
-    }
-
-    /* Full-screen transparent button */
-    #startBtn {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0,0,0,0); /* fully transparent */
-        border: none;
-        z-index: 999;
     }
 
     .textA, .textB, .clickText {
@@ -31,6 +18,7 @@
         font-weight: bold;
         white-space: nowrap;
         animation: flash 0.15s infinite alternate;
+        cursor: pointer;
     }
 
     .textA {
@@ -45,7 +33,7 @@
 
     .clickText {
         color: white;
-        font-size: 12px;
+        font-size: 46px;
         animation: flash 0.15s infinite alternate, randomMove 2s linear infinite;
     }
 
@@ -75,9 +63,6 @@
 </head>
 <body>
 
-<!-- Big transparent button -->
-<button id="startBtn"></button>
-
 <audio id="bgMusic" loop>
     <source src="music.mp3" type="audio/mpeg">
 </audio>
@@ -97,12 +82,15 @@ function createText(type) {
     } else {
         text.className = "clickText";
         text.innerText = "CLICK";
+
+        // On first click, start music and chaos
+        text.addEventListener("click", startChaos);
     }
 
     text.style.top = Math.random() * window.innerHeight + "px";
     text.style.left = Math.random() * window.innerWidth + "px";
 
-    if(type !== "click") text.style.fontSize = (40 + Math.random() * 50) + "px";
+    if(type !== "click") text.style.fontSize = (30 + Math.random() * 70) + "px";
 
     document.body.appendChild(text);
 
@@ -112,14 +100,11 @@ function createText(type) {
 }
 
 function startChaos() {
-    if (chaosStarted) return;
+    if(chaosStarted) return;
     chaosStarted = true;
 
     // Remove blur
     document.body.style.filter = "none";
-
-    // Hide the big button
-    document.getElementById("startBtn").style.display = "none";
 
     // Play music
     document.getElementById("bgMusic").play();
@@ -129,11 +114,8 @@ function startChaos() {
     setInterval(() => createText("B"), 120);
 }
 
-// Spawn white CLICK texts continuously
+// Spawn tiny CLICK texts until first click
 setInterval(() => createText("click"), 80);
-
-// Start chaos on button click
-document.getElementById("startBtn").addEventListener("click", startChaos);
 </script>
 
 </body>
