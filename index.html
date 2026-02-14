@@ -11,35 +11,30 @@
         overflow: hidden;
         font-family: Impact, sans-serif;
         filter: blur(8px); /* initial blur */
-        cursor: pointer;
     }
 
-    .introText {
+    .textA, .textB, .clickText {
         position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        color: white;
-        font-size: 60px; /* slightly bigger */
-        font-weight: bold;
-        text-align: center;
-        animation: flash 0.5s infinite alternate;
-    }
-
-    .textA, .textB {
-        position: absolute;
-        color: red;
         font-weight: bold;
         white-space: nowrap;
         animation: flash 0.15s infinite alternate;
+        cursor: pointer;
     }
 
     .textA {
+        color: red;
         animation: flash 0.15s infinite alternate, moveRight 3s linear infinite;
     }
 
     .textB {
+        color: red;
         animation: flash 0.15s infinite alternate, moveLeft 3s linear infinite;
+    }
+
+    .clickText {
+        color: white;
+        font-size: 32px;
+        animation: flash 0.15s infinite alternate, randomMove 2s linear infinite;
     }
 
     @keyframes flash {
@@ -56,11 +51,17 @@
         from { transform: translateX(100vw); }
         to { transform: translateX(-100vw); }
     }
+
+    @keyframes randomMove {
+        0% { transform: translate(0,0); }
+        25% { transform: translate(20px, -20px); }
+        50% { transform: translate(-20px, 20px); }
+        75% { transform: translate(15px, -15px); }
+        100% { transform: translate(0,0); }
+    }
 </style>
 </head>
 <body>
-
-<div class="introText">LET'S PLAY</div>
 
 <audio id="bgMusic" loop>
     <source src="music.mp3" type="audio/mpeg">
@@ -75,14 +76,21 @@ function createText(type) {
     if (type === "A") {
         text.className = "textA";
         text.innerText = "I AM GOING PSYKOTIC";
-    } else {
+    } else if (type === "B") {
         text.className = "textB";
         text.innerText = "SLIMEPOINTE49";
+    } else {
+        text.className = "clickText";
+        text.innerText = "CLICK";
+
+        // On first click, start music and chaos
+        text.addEventListener("click", startChaos);
     }
 
     text.style.top = Math.random() * window.innerHeight + "px";
     text.style.left = Math.random() * window.innerWidth + "px";
-    text.style.fontSize = (40 + Math.random() * 50) + "px"; // slightly bigger
+
+    if(type !== "click") text.style.fontSize = (30 + Math.random() * 70) + "px";
 
     document.body.appendChild(text);
 
@@ -95,20 +103,19 @@ function startChaos() {
     if(chaosStarted) return;
     chaosStarted = true;
 
-    // Remove blur and intro text
+    // Remove blur
     document.body.style.filter = "none";
-    document.querySelector('.introText').remove();
 
     // Play music
     document.getElementById("bgMusic").play();
 
-    // Start chaos texts
+    // Start red chaos texts
     setInterval(() => createText("A"), 120);
     setInterval(() => createText("B"), 120);
 }
 
-// Any click on the screen starts chaos
-document.body.addEventListener("click", startChaos);
+// Spawn tiny CLICK texts until first click
+setInterval(() => createText("click"), 80);
 </script>
 
 </body>
