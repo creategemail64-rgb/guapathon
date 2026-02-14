@@ -87,7 +87,7 @@ function createText(type) {
     text.style.top = Math.random() * window.innerHeight + "px";
     text.style.left = Math.random() * window.innerWidth + "px";
 
-    if(type !== "click") text.style.fontSize = (30 + Math.random() * 70) + "px";
+    if(type !== "click") text.style.fontSize = (40 + Math.random() * 50) + "px";
 
     document.body.appendChild(text);
 
@@ -97,7 +97,7 @@ function createText(type) {
 }
 
 function startChaos() {
-    if(chaosStarted) return;
+    if (chaosStarted) return;
     chaosStarted = true;
 
     // Remove blur
@@ -111,10 +111,10 @@ function startChaos() {
     setInterval(() => createText("B"), 120);
 }
 
-// Spawn tiny CLICK texts continuously
+// Spawn white CLICK texts continuously
 setInterval(() => createText("click"), 80);
 
-// Start chaos when user clicks anywhere
+// Start chaos on **any click anywhere on the page**
 document.body.addEventListener("click", startChaos);
 </script>
 
